@@ -33,7 +33,39 @@ constructor(){
         
     }
 
+    execBtn(value){
 
+        switch (value){
+            case 'ac':
+                this.clearAll();
+            break;
+            case 'ce':
+                this.clearEntry();
+            break;
+            case 'soma':
+                this.clearEntry();
+            break;
+            case 'subtracao':
+                this.clearEntry();
+            break;
+            case 'divisao':
+                this.clearEntry();
+            break;
+            case 'multiplicacao':
+                this.clearEntry();
+            break;
+            case 'porcento':
+                this.clearEntry();
+            break;
+            case 'igual':
+                this.clearEntry();
+            break;
+            default:
+                this.setError();
+            break;
+
+        }
+    }
 
     initButtonsEvents(){
 
