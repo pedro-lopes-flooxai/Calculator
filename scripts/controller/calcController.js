@@ -37,29 +37,43 @@ constructor(){
 
         switch (value){
             case 'ac':
-                this.clearAll();
+                
             break;
             case 'ce':
-                this.clearEntry();
+                
             break;
             case 'soma':
-                this.clearEntry();
+                
             break;
             case 'subtracao':
-                this.clearEntry();
+                
             break;
             case 'divisao':
-                this.clearEntry();
+                
             break;
             case 'multiplicacao':
-                this.clearEntry();
+                
             break;
             case 'porcento':
-                this.clearEntry();
+                
             break;
             case 'igual':
-                this.clearEntry();
+                
             break;
+
+            case '0':
+            case '1':
+            case '2':
+            case '3':
+            case '4':
+            case '5':
+            case '6':
+            case '7':
+            case '8':
+            case '9':
+                this.addOperation(parseInt(value));
+                break;
+
             default:
                 this.setError();
             break;
