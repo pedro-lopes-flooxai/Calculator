@@ -2,6 +2,8 @@ class CalcController{
 
 constructor(){
 
+
+    this._operation = [];
     this._locale = 'pt-BR';
     this._displayCalcEl = document.querySelector("#display");
     this._dateEl = document.querySelector("#data");
@@ -31,7 +33,7 @@ constructor(){
         
     }
 
-    
+
 
     initButtonsEvents(){
 
@@ -40,7 +42,8 @@ constructor(){
         buttons.forEach((btn, index)=>{
 
             this.addEventListenerAll(btn, "click drag", e=>{
-                console.log(btn.className.baseVal.replace("btn-",""));
+
+               let textBtn = btn.className.baseVal.replace("btn-","")
             });
 
             this.addEventListenerAll(btn, "mouseover mouseup mousedown", e => {
