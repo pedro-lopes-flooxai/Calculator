@@ -70,12 +70,28 @@ constructor(){
         calc(){
 
             let last = this._operation.pop();
+
             let result = eval(this._operation.join(" "));
+
             this._operation = [result, last];
+            
+            this.setLastNumberToDisplay();
           
         }
 
         setLastNumberToDisplay(){
+
+            let lastNumber;
+
+            for(let i = this._operation.length-1; i >= 0; i--){
+
+                if (!this.isOperator(this._operation[i])) {
+                    lastNumber = this._operation[i];
+                    break;
+                }
+            }
+
+              this.displayCalc = lastNumber;
 
         }
 
@@ -94,6 +110,8 @@ constructor(){
         } else {
 
             this.pushOperation(value);
+
+            this.setLastNumberToDisplay();
         }
 
         } else { 
