@@ -204,13 +204,13 @@ constructor(){
                 this._operation = [firstItem, this._lastOperator, this._lastNumber];
             }
 
-            if (this._operation.lenght > 3) {
+            if (this._operation.length > 3) {
                 last = this._operation.pop();
 
                 
                 this._lastNumber = this.getResult();
 
-            } else if (this._operation.lenght == 3){
+            } else if (this._operation.length == 3){
 
                 
                 this._lastNumber = this.getLastItem(false);
@@ -433,7 +433,7 @@ constructor(){
     }
 
     set displayCalc(value){
-        if (value.toString().lenght > 10) {
+        if (value.toString().length > 10) {
             this.setError();
             return false;
         }
