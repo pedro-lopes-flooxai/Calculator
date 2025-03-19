@@ -183,7 +183,7 @@ constructor(){
             } else {
 
                 let newValue = this.getLastOperation().toString() + value.toString();
-                this.setLastOperation(parseFloat(newValue));
+                this.setLastOperation(newValue);
                 this.setLastNumberToDisplay();
 
                 }
@@ -200,6 +200,8 @@ constructor(){
     addDot(){
 
         let lastOperator = this.getLastOperation();
+
+        if (typeof lastOperation === 'string' && lastOperation.split('').indexOf('.') > 1) return;
 
         if (this.isOperator(lastOperator) || !lastOperation) {
             this.pushOperation('O.');
