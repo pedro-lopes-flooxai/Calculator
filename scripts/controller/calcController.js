@@ -30,6 +30,28 @@ constructor(){
           
     }
 
+    pasteFromClipboard(){
+        document.addEventListener('paste', e=>{
+            let text = e.clipboardData.getData('Text');
+
+            this.displayCalc = parseFloat(text);
+
+        });
+        
+    }
+
+    copyToclipboard(){
+
+        let input = document.createElement('input');
+        input.value = this.displayCalc;
+        cocument.body.appendChild(input);
+        input.select();
+        document.execCommand("copy");
+        input.remove();
+    
+
+    }
+
     initkeyboard(){
 
         document.addEventListener(keyup, e =>{
@@ -72,6 +94,10 @@ constructor(){
                 case '8':
                 case '9':
                     this.addOperation(parseInt(e.key));
+                    break;
+
+                case 'c':
+                    if (e.ctrlKey) this.copyToclipboard();
                     break;
 
             }
