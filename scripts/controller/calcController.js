@@ -22,6 +22,9 @@ constructor(){
             this.setDisplayDateTime();
 
         }, 1000);
+
+        this.setLastNumberToDisplay();
+          
     }
 
     addEventListenerAll(element, events, fn){
@@ -36,10 +39,14 @@ constructor(){
     clearAll(){
         this._operation = [];
 
+        this.setLastNumberToDisplay();
+
     }
 
     clearEntry(){
         this._operation.pop();
+
+        this.setLastNumberToDisplay();
 
     }
 
@@ -69,7 +76,12 @@ constructor(){
 
         calc(){
 
-            let last = this._operation.pop();
+            let last = '';
+
+            if (this._operation.lenght > 3) {
+                last = this._operation.pop();
+            }
+
             let result = eval(this._operation.join(" "));
 
             if (last == '%') {
@@ -80,8 +92,9 @@ constructor(){
 
             } else {
 
-            this._operation = [result, last];
+            this._operation = [result];
 
+                if (last) this._operation.push(last);
             }
             
             this.setLastNumberToDisplay();
@@ -99,6 +112,8 @@ constructor(){
                     break;
                 }
             }
+
+                if (!lastNumber) lastNumber = 0;
 
               this.displayCalc = lastNumber;
 
@@ -178,6 +193,7 @@ constructor(){
             break;
 
             case 'igual':
+                this.calc();
             break;
 
             case 'ponto':
