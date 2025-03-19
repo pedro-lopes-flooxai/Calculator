@@ -15,7 +15,7 @@ constructor(){
     this._currentDate;
     this.initialize();
     this.initButtonsEvents();
-    this.initkeyboard();
+    this.initKeyboard();
 }   
 
     initialize(){
@@ -31,7 +31,7 @@ constructor(){
         this.setLastNumberToDisplay();
         this.pasteFromClipboard();
 
-        document.querySelectorAll('btn-ac').forEach(btn =>{
+        document.querySelectorAll('.btn-ac').forEach(btn =>{
             btn.addEventListener('dblclick', e=>{
 
                 this.toggleAudio();
@@ -64,21 +64,18 @@ constructor(){
         
     }
 
-    copyToclipboard(){
+    copyToClipboard() {
 
-        let input = document.createElement('input');
-        input.value = this.displayCalc;
-        cocument.body.appendChild(input);
-        input.select();
-        document.execCommand("copy");
-        input.remove();
-    
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(this.displayCalc);
+        }
 
     }
 
-    initkeyboard(){
 
-        document.addEventListener(keyup, e =>{
+    initKeyboard(){
+
+        document.addEventListener('keyup', e =>{
 
             this.playAudio();
 
@@ -96,7 +93,7 @@ constructor(){
                 case '*':
                 case '/':
                 case '%':
-                    this.addOperation('e.key');
+                    this.addOperation(e.key);
                 break;
 
                 case 'Enter':
@@ -123,7 +120,7 @@ constructor(){
                     break;
 
                 case 'c':
-                    if (e.ctrlKey) this.copyToclipboard();
+                    if (e.ctrlKey) this.copyToClipboard();
                     break;
 
             }
@@ -184,6 +181,14 @@ constructor(){
 
 
     getResult(){
+        try{
+            return eval(this._operation.join(""));
+        } catch(e){
+            setTimeout(()=>{
+                this.setError();
+            }, 1);
+            
+        }
 
         }
 
@@ -195,7 +200,7 @@ constructor(){
 
             if (this._operation.length < 3){
 
-                let.firstItem = this._operation[0];
+                let firstItem = this._operation[0];
                 this._operation = [firstItem, this._lastOperator, this._lastNumber];
             }
 
@@ -211,7 +216,7 @@ constructor(){
                 this._lastNumber = this.getLastItem(false);
             }
 
-            let result = this.getResult;
+            let result = this.getResult();
 
             if (last == '%') {
 
@@ -237,15 +242,15 @@ constructor(){
             for (let i = this._operation.length-1; i >= 0; i--){
 
             
-                if (this.isOperator(this._operation[i]) == isOperator) {
-                    lastNumber = this._operation[i];
+                if (this.isOperator(this._operation[i]) === isOperator) {
+                    lastItem = this._operation[i];
                     break;
                 }
             
         }
             if(!lastItem){
 
-                lastItem = (isOperator) ? this._lastOperator : this.lastNumber;
+                lastItem = (isOperator) ? this._lastOperator : this._lastNumber;
             }
 
     return lastItem;
@@ -302,12 +307,12 @@ constructor(){
 
     addDot(){
 
-        let lastOperator = this.getLastOperation();
+        let lastOperation = this.getLastOperation();
 
-        if (typeof lastOperation === 'string' && lastOperation.split('').indexOf('.') > 1) return;
+        if (typeof lastOperation === 'string' && lastOperation.split('').indexOf('.') > -1) return;
 
         if (this.isOperator(lastOperator) || !lastOperation) {
-            this.pushOperation('O.');
+            this.pushOperation('0.');
         } else {
             this.setLastOperation(lastOperation.toString() + '.');
         }
