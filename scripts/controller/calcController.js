@@ -2,6 +2,8 @@ class CalcController {
 
 constructor(){
 
+    this._audio = new Audio('click.mp3');
+    this._audioOnOff = false;
     this._lastOperator = '';
     this._lastNumber = '';
 
@@ -27,7 +29,29 @@ constructor(){
         }, 1000);
 
         this.setLastNumberToDisplay();
+        this.pasteFromClipboard();
+
+        document.querySelectorAll('btn-ac').forEach(btn =>{
+            btn.addEventListener('dblclick', e=>{
+
+                this.toggleAudio();
+
+            });
+        });
           
+    }
+
+     toggleAudio(){
+
+        this._audioOnOff = !this._audioOnOff;
+
+    }
+
+    playAudio(){
+        if (this._audioOnOff){
+            this._audio.currentTime = 0;
+            this._audio.play();
+        }
     }
 
     pasteFromClipboard(){
@@ -55,6 +79,8 @@ constructor(){
     initkeyboard(){
 
         document.addEventListener(keyup, e =>{
+
+            this.playAudio();
 
             switch (e.key){
                 case 'Escape':
@@ -291,6 +317,8 @@ constructor(){
 
     execBtn(value){
 
+        this.playAudio();
+
         switch (value){
             case 'ac':
                 this.clearAll();
@@ -400,6 +428,10 @@ constructor(){
     }
 
     set displayCalc(value){
+        if (value.toString().lenght > 10) {
+            this.setError();
+            return false;
+        }
         this._displayCalcEl.innerHTML = value;
 
     }
