@@ -40,6 +40,8 @@ constructor(){
 
     clearAll(){
         this._operation = [];
+        this._lastNumber = '';
+        this._lastOperation = '';
 
         this.setLastNumberToDisplay();
 
@@ -47,6 +49,7 @@ constructor(){
 
     clearEntry(){
         this._operation.pop();
+        
 
         this.setLastNumberToDisplay();
 
@@ -164,10 +167,6 @@ constructor(){
 
                 this.setLastOperation(value);
             
-        } else if(isNaN(value)){
-
-            console.log('outra coisa', value);
-
         } else {
 
             this.pushOperation(value);
@@ -184,7 +183,7 @@ constructor(){
             } else {
 
                 let newValue = this.getLastOperation().toString() + value.toString();
-                this.setLastOperation(parseInt(newValue));
+                this.setLastOperation(parseFloat(newValue));
                 this.setLastNumberToDisplay();
 
                 }
@@ -196,6 +195,19 @@ constructor(){
     
     setError(){
         this.displayCalc = "Error";
+    }
+
+    addDot(){
+
+        let lastOperator = this.getLastOperation();
+
+        if (this.isOperator(lastOperator) || !lastOperation) {
+            this.pushOperation('O.');
+        } else {
+            this.setLastOperation(lastOperation.toString() + '.');
+        }
+        this.setLastNumberToDisplay();
+
     }
 
     execBtn(value){
@@ -234,7 +246,7 @@ constructor(){
             break;
 
             case 'ponto':
-                this.addOperation('.');
+                this.addDot();
             break;
             
             case '0':
