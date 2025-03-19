@@ -70,10 +70,19 @@ constructor(){
         calc(){
 
             let last = this._operation.pop();
-
             let result = eval(this._operation.join(" "));
 
+            if (last == '%') {
+
+                result = result /= 100;
+
+                this._operation = [result];
+
+            } else {
+
             this._operation = [result, last];
+
+            }
             
             this.setLastNumberToDisplay();
           
